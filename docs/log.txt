@@ -1,0 +1,100 @@
+Blackjack Stat
+By Joshua Suarez
+joshuasuarez@gmail.com
+
+
+Copyright (c) 2011 Joshua Suarez
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+
+--------------------------------------------------------------------------------
+
+DEVELOPMENT LOG
+
+
+---
+April 24th, 2011
+---
+
+I worked out some class hierarchy for the strategy classes.  I created a class
+"Strategy", which will be abstract and all other classes will extend.
+Polymorphism will take care of the rest once the strategy is assigned to the
+functor. I learned about null.asInstanceOf[T], which will initialize a variable
+to null, but requires a type. With that bit of info I was able to assign the
+strategy variable to initialize to a null instance of the Strategy class,
+allowing me to set it to a more specific one later.
+
+The "NeverBustStrategy" class was added, which stands on anything over 11.  It
+has just as much variance as the dealer strategy, getting anywhere from 35% to a
+50% win percentage.  Again, this one is not doing anything like splits or double
+downs, so later on we will see if that changes anything.
+
+---
+March 17th, 2011
+---
+
+I shortened a few more statements today.  I added the DealerStrategy class,
+which can be assigned to a variable as a function object.  I set up the game to
+run an 8 deck shoe with both the player and the dealer using the same strategy
+(stand on 17 or above), and the results average to the player winning about 40%
+of the time (with high variance).  Next I'll try the "Never Bust" strategy.
+
+---
+March 10th, 2011
+---
+
+Worked on the Player class a bit more to implement a "hand" array that can be
+added and cleared easily.  I created the BlackJackRules class which will control
+the entire game by creating players, dealing hands, and deciding who wins.  So
+far I've created one function that calculates value of the player's hand and
+returns a number.  As a test I set up a small function that will deal a player
+object 2 cards until the deck runs out and print out the values of each hand.
+So far so good.
+
+---
+March 8th, 2011
+---
+
+Cut down a few more lines here and there in the Card class in order to use the
+language to its full potential.  I'm sure there's plenty more I can do.  Added
+a player class, will write the rule class next.  The idea is, the players and
+deck class will be separate and controlled by a "Rule" class, which will be
+blackjack at first, then poker/gofish/whatever in the future.
+
+---
+March 6th, 2011
+---
+
+I was able to cut down the shuffle function to 2 lines by using the proper
+Scala provided functions instead of Arrays.  The shorter syntax is supposed to
+be the advantage of Scala over Java, so it only makes sense that I force myself
+out of the old mentality.
+
+Today I added a function to convert the number scheme into a card value ("1-6"
+becomes the "6 of Diamonds") and another to draw the top card from the deck,
+which can return the formatted string or the number scheme.
+
+---
+March 5th, 2011
+---
+
+After installing and configuring Scala on Netbeans, I created the CardDeck class
+with a constructor, a print function, and a shuffle function.  So far this
+language is looking very nice and concise.
