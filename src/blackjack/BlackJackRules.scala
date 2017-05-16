@@ -7,6 +7,8 @@ package blackjack
 
 import blackjack.BlackJackStrategy._
 
+import scala.collection.mutable.ArrayBuffer
+
 class BlackJackRules(shoeSize:Int = 1){
 
   var d = new CardDeck(shoeSize)
@@ -61,19 +63,33 @@ class BlackJackRules(shoeSize:Int = 1){
   }
 
   /*
-   * Determines the value of the player's hand.  Takes the hand array as a
-   * parameter
+   * Determines the value of the player's hand.  Takes the hand ArrayBuffer as a parameter
    */
-  def handValue(h:Array[String]):Int={
+  def handValue(h:ArrayBuffer[String]):Int={
     var total:Int = 0;
-    for(i <- 0 until h.length){
-      val face:Int = h(i).split('-')(1).toInt
-        if(face <= 10) total = total + face;
-        else if(face > 10 && face != 14) total = total + 10;
-        else if(face == 14 && total <= 10) total = total + 11;
-        else if(face == 14 && total > 10) total = total + 1;
+
+    var cardVals:List[Int] = h.map{card =>
+        val face:Int = card.split('-')(1).toInt
+        if(face <= 10) face
+        else if(face > 10 && face != 14) 10
+        else if(face == 14) 11
+      }
+      .toList
+      .map(_.toString.toInt)
+
+    total = cardVals.sum
+
+    //If the sum is greater than 21, start converting 11 Ace values to 1 values by subtracting 10 for each one
+    //Each ace is converted to 1 while the total is >21 until there are no more.
+    while(cardVals.contains(11) && cardVals.sum > 21) {
+      total -= 10
+      cardVals = cardVals.patch(cardVals.indexOf(11),Nil,1)
     }
-    if(total > 21) return -1
-    else return total
+
+    if(total > 21){
+      return -1
+    }
+    else
+      return total
   }
 }

@@ -4,7 +4,7 @@
 
 package blackjack
 
-import scala.collection.mutable.Stack
+import scala.collection.mutable.ArrayBuffer
 import blackjack.BlackJackStrategy.Strategy
 
 class Player (startingCash:Double = 0, isDealer:Boolean = false) {
@@ -23,7 +23,7 @@ class Player (startingCash:Double = 0, isDealer:Boolean = false) {
   var wins = 0
   var totalGames = 0
 
-  var hand = new Array[String](0)
+  var hand = new ArrayBuffer[String]()
 
   /*
    * getWinPercentage
@@ -35,11 +35,11 @@ class Player (startingCash:Double = 0, isDealer:Boolean = false) {
    * addCardToHand
    * Adds a card (string) to the player's hand array
    */
-  def addCardToHand(s:String)= hand = new Stack[String].pushAll(hand).push(s).toArray
+  def addCardToHand(s:String)= hand += s
 
   /*
    * clearHand
    * Removes all cards from the hand array
    */
-  def clearHand()= hand = new Array[String](0)
+  def clearHand()= hand.clear()
 }

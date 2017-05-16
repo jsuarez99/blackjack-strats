@@ -30,6 +30,14 @@ DEVELOPMENT LOG
 
 
 ---
+May 16, 2017
+---
+First update in little over 6 years! I was browsing my own github when I noticed
+I could do many things better now that I've used Scala professionally for a while.
+First thing I did was update my handValue function that was calculating Aces
+incorrectly at times, as well as writing some things in a more functional way.
+
+---
 April 24th, 2011
 ---
 
