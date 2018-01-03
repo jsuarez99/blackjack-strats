@@ -13,8 +13,17 @@ class NeverBustStrategy extends Strategy {
    * Returns true to hit, false to stay;  Never hit on anything greater than 11
    */
   override def apply(handVal:Int):Boolean={
-    if(handVal == -1) false
-    else if(handVal > 11) false
-    else true
+    if(handVal == -1){
+      println("Bust")
+      false
+    }
+    else if(handVal > 11){
+      println("Stand")
+      false
+    }
+    else{
+      print("Hit...")
+      true
+    }
   }
 }

@@ -29,24 +29,39 @@ class BlackJackRules(shoeSize:Int = 1){
       }
 
       //Deal out the first two cards to each player
+      println("---Game " + i.toString + "---")
       p.addCardToHand(d.draw())
       dealer.addCardToHand(d.draw())
       p.addCardToHand(d.draw())
       dealer.addCardToHand(d.draw())
 
-      //First, draw cards for the player depending on how long the strategy
-      //will return true
-      while(p.strategy(handValue(p.hand))) p.addCardToHand(d.draw())
+      //Player-----------
+      println("Player:")
+      p.hand.foreach(e => println("-" + d.cardValue(e)))
+      println("Hand value: " + handValue(p.hand))
 
-      while(dealer.strategy(handValue(dealer.hand))) dealer.addCardToHand(d.draw())
+      //First, draw cards for the player depending on how long the strategy will return true
+      while(p.strategy(handValue(p.hand))){
+        val drawnCard = d.draw()
+        println(d.cardValue(drawnCard))
+        p.addCardToHand(drawnCard)
+        println("Hand value: " + handValue(p.hand))
+      }
 
-
-      println("---Results---\nPlayer:")
-      p.hand.foreach(e => println(d.cardValue(e)))
-      println(handValue(p.hand))
+      //Dealer----------------
       println("Dealer:")
-      dealer.hand.foreach(e => println(d.cardValue(e)))
-      println(handValue(dealer.hand))
+      dealer.hand.foreach(e => println("-" + d.cardValue(e)))
+      println("Hand value: " + handValue(dealer.hand))
+
+      //Now the dealer draws
+      while(dealer.strategy(handValue(dealer.hand))){
+        val drawnCard = d.draw()
+        println(d.cardValue(drawnCard))
+        dealer.addCardToHand(drawnCard)
+        println("Hand value: " + handValue(dealer.hand))
+      }
+
+      //Determine the winner -----------------
       if(handValue(p.hand) > handValue(dealer.hand)){
         println("Player wins!")
         p.wins += 1
